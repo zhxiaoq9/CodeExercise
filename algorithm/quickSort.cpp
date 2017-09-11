@@ -3,9 +3,7 @@
 
 using namespace std;
 
-int quickSortHelp(vector<int> &vec, int left, int right){
-	int head = left;
-	int tail = right;
+int getPartion(vector<int> &vec, int head, int tail){
 	int key = vec[head];
 	if (head < tail){
 		while (head < tail){
@@ -14,6 +12,7 @@ int quickSortHelp(vector<int> &vec, int left, int right){
 			}
 			if (head < tail)
 				vec[head++] = vec[tail];
+
 			while (vec[head] <= key && head < tail){
 				head++;
 			}
@@ -27,9 +26,8 @@ int quickSortHelp(vector<int> &vec, int left, int right){
 
 
 void quickSort(vector<int> &vec, int l , int r){
-
 	if (l < r){
-		int index = quickSortHelp(vec, l, r);
+		int index = getPartion(vec, l, r);
 		quickSort(vec, l, index - 1);
 		quickSort(vec, index + 1, r);
 	}
@@ -38,8 +36,8 @@ void quickSort(vector<int> &vec, int l , int r){
 
 int main(){
 
-	vector<int> vec = { 7, 5, 6, 12, 15, 9, 1, 4, 3 };
-
+	//vector<int> vec = { 7, 5, 6, 12, 15, 9, 1, 4, 3 };
+	vector<int> vec = { 1, 0, 6, 7, 4, 7, 1, 3, 3 };
 	quickSort(vec, 0, vec.size() - 1);
 
 	for (auto val : vec){
