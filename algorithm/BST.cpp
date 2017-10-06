@@ -1,6 +1,6 @@
 //目的:实现二叉查找树的基本操作
 //说明:二叉查找树根节点的左子树的值均小于根节点,右子树的值均大于根节点，左右子树也分别为二叉查找树,二叉树中没有重复元素
-//基本操作:前序遍历,中序遍历,后续遍历,层次遍历,查找指定节点,查找最大最小值,插入节点,查找节点,销毁二叉树,删除节点(暂未实现)
+//基本操作:前序遍历,中序遍历,后序遍历,层次遍历,查找指定节点,插入节点,查找节点,销毁二叉树,查找最大最小值(暂未实现),前驱与后继(暂未实现),删除节点(暂未实现)
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -23,6 +23,7 @@ private:
 
 public:
 	BSTree();
+	BSTree(Node<T>* tree);
 	~BSTree();
 
 	void preOrder();  //前序遍历
@@ -55,6 +56,9 @@ private:
 
 template <class T>
 BSTree<T>::BSTree() :mRoot(NULL){};
+
+template <class T>
+BSTree<T>::BSTree(Node<T>* tree) :mRoot(tree){};
 
 template <class T>
 BSTree<T>::~BSTree(){
@@ -270,10 +274,10 @@ int main()
 
 	Node<int>* p = tree->iterativeSearch(1);
 	if (p != NULL)
-		cout << p->key << endl;
+		cout << "Fouund element: " << p->key << endl;
 	p = tree->iterativeSearch(100);
 	if (p == NULL)
-		cout << "Can't find 100.\n";
+		cout << "Can't find element: 100\n";
 
 
 
