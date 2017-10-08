@@ -64,7 +64,7 @@ int main(){
 	cout << num << endl;
 
 	cout << "返回最小的数: ";
-	num = findMaxK(ary, ary.size()+1);
+	num = findMaxK(ary, ary.size());
 	cout << num << endl;
 
 	return 0;
