@@ -5,21 +5,21 @@ using namespace std;
 
 int getPartion(vector<int> &vec, int head, int tail){
 	int key = vec[head];
-	if (head < tail){
-		while (head < tail){
-			while (vec[tail] >= key && head < tail){
-				tail--;
-			}
-			if (head < tail)
-				vec[head++] = vec[tail];
 
-			while (vec[head] <= key && head < tail){
-				head++;
-			}
-			if (head < tail)
-				vec[tail--] = vec[head];
+	while (head < tail){
+		while (vec[tail] >= key && head < tail){
+			tail--;
 		}
+		if (head < tail)
+			vec[head++] = vec[tail];
+
+		while (vec[head] <= key && head < tail){
+			head++;
+		}
+		if (head < tail)
+			vec[tail--] = vec[head];
 	}
+
 	vec[head] = key;
 	return head;
 }
