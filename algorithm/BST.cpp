@@ -33,11 +33,15 @@ public:
 
 	Node<T>* search(T key) const; //递归查找
 	Node<T>* iterativeSearch(T key) const; //非递归查找
-	
+	T maximum() const;   //查找最大值
+	T minimum() const;   //查找最小值
+	Node<T>* predecessor(Node<T>* tree) const;
+	Node<T>* successor(Node<T>* tree) const;
+
 	void insert(T key); //插入节点
 	void remove(T key); //删除节点
 	void destroy();//销毁二叉树
-	
+
 private:
 	void preOrder(Node<T>* tree) const;
 	void inOrder(Node<T>* tree) const;
@@ -51,7 +55,9 @@ private:
 	void insert(Node<T>* &tree, Node<T>* target);
 	Node<T>* search(Node<T>* tree, T key) const;
 	Node<T>* iterativeSearch(Node<T>* tree, T key) const;
-	
+	Node<T>* maximum(Node<T> *tree) const;
+	Node<T>* minimum(Node<T> *tree) const;
+
 };
 
 template <class T>
@@ -86,7 +92,7 @@ void BSTree<T>::destroy(){
 
 template <class T>
 void BSTree<T>::insert(Node<T>* &tree, Node<T>* target){
-    //若已存在则直接返回
+	//若已存在则直接返回
 	if (tree != NULL){
 		if (search(target->key) != NULL)
 			return;
@@ -211,16 +217,16 @@ int BSTree<T>::levelOrder(Node<T>* tree) const{
 		depth++;
 		num++;
 	}
-		
+
 	while (num--){
-		Node<T>* q= que.front();
+		Node<T>* q = que.front();
 		que.pop();
 		printKey(q->key);
 		if (q->left != NULL){
 			que.push(q->left);
 			next++;
 		}
-			
+
 		if (q->right != NULL){
 			que.push(q->right);
 			next++;
@@ -240,19 +246,56 @@ int BSTree<T>::levelOrder(){
 	return levelOrder(mRoot);
 }
 
+template <class T>
+Node<T>* BSTree<T>::maximum(Node<T> *tree) const{
+	if (tree == NULL)
+		return NULL;
+	while (tree->right != NULL)
+		tree = tree->right;
+	
+	return tree;
+}
+
+template <class T>
+T BSTree<T>::maximum() const{
+	Node<T> *p = maximum(mRoot);
+	if (p != NULL)
+		return p->key;
+	else
+		return (T)NULL;
+}
+
+template <class T>
+Node<T>* BSTree<T>::minimum(Node<T> *tree) const{
+	if (tree == NULL)
+		return NULL;
+	while (tree->left != NULL)
+		tree = tree->left;
+	return tree;
+}
+
+template<class T>
+T BSTree<T>::minimum() const{
+	Node<T> *p = minimum(mRoot);
+	if (p != NULL)
+		return p->key;
+	else
+		return (T)NULL;
+}
+
 
 
 
 int main()
 {
 	int i, ilen;
-	int arr[] = { 16, 9, 18, 6, 12, 17, 25, 1, 10};
+	int arr[] = { 16, 9, 18, 6, 12, 17, 25, 1, 10 };
 	ilen = (sizeof(arr)) / (sizeof(arr[0]));
 
 	BSTree<int>* tree = new BSTree<int>();
-	
+
 	cout << "== 依次添加: ";
-	
+
 	for (i = 0; i<ilen; i++)
 	{
 		cout << arr[i] << " ";
@@ -270,16 +313,25 @@ int main()
 
 	cout << "\n== 层次遍历: ";
 	int depth = tree->levelOrder();
-	cout << " Tree depth: " << depth << endl;
+	cout << "二叉树深度: " << depth;
 
+	cout << "\n== 寻找元素: ";
 	Node<int>* p = tree->iterativeSearch(1);
 	if (p != NULL)
-		cout << "Fouund element: " << p->key << endl;
+		cout << "找到元素: " << p->key;
+
+	cout << "\n== 寻找元素: ";
 	p = tree->iterativeSearch(100);
 	if (p == NULL)
-		cout << "Can't find element: 100\n";
+		cout << "没找到元素: 100";
 
+	cout << "\n== 最大元素: ";
+	int max = tree->maximum();
+	cout << max;
 
+	cout << "\n== 最小元素: ";
+	int min = tree->minimum();
+	cout << min;
 
 	// 销毁二叉树
 	tree->destroy();
