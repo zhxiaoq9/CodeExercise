@@ -3,6 +3,9 @@
 #include <iostream>
 using namespace std;
 
+
+
+
 //数组字符串与指针
 //一个指针p无论指向数组还是堆上分配的内存,sizeof(p)永远是4
 void pointerANDarray(){
@@ -39,11 +42,22 @@ void pointerANDarray(){
 
 }
 
+int local_param_test;
+void localParam(void){
+	//int b;
+	//cout << b << endl; //只声明b却没有初始化b的话编译报错:局部变量b未初始化
+	cout << local_param_test << endl;//这是全局变量,可以不初始化
+}
+
 
 
 int main(){
 	cout << "区分字符串与指针" << endl;
 	pointerANDarray();
+
+	cout << "局部变量的初始化"<< endl;
+	localParam();
+
 
 	return 0;
 }
