@@ -61,9 +61,12 @@ public:
 class drived : public base{
 	
 public:
-	static int m1;
-	const int m2 = 2;
-	int m3 = 3;
+	static int m1; //类外初始化	
+	const static m2 = 2; //比较特殊,可以在类内初始化
+	//const成员只能在初始化列表中初始化,因为const变量一旦被初始化就不能被改变
+	//并且这种改变只是针对某一个对象而言的,而不是对类来说的,所以不能在这里初始化
+	//只能在初始化列表里面初始化不能在构造函数里面使用m3=3,因为这是赋值不是初始化.
+	//const int m3; 
 
 public:
 	drived(){ x = 10; cout << "drived constructor" << endl; }
